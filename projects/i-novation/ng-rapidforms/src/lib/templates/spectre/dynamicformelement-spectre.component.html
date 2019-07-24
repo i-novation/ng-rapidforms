@@ -1,0 +1,103 @@
+<nrf-df-element [element]="element" [form]="form" [options]="options">
+
+  <!-- Label for the element -->
+  <ng-container *nrfLabel="let element;">
+    <label [attr.for]="element.key" class="form-label">{{element.label}}</label>
+  </ng-container>
+
+  <!-- Textbox element -->
+  <ng-container *nrfTextboxElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <input [formControlName]="element.key" [id]="element.key" [type]="element.type" class="form-input"
+        placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+        name="{{element.key}}" [ngClass]="{
+          'is-success': dynamicformelement.isValid && !dynamicformelement.isPristine,
+          'is-error': !dynamicformelement.isValid && !dynamicformelement.isPristine
+        }">
+    </ng-container>
+  </ng-container>
+
+  <!-- Textarea element -->
+  <ng-container *nrfTextareaElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <textarea [formControlName]="element.key" [id]="element.key" class="form-input" [rows]="element.rows"
+        placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+        name="{{element.key}}" [ngClass]="{
+            'is-success': dynamicformelement.isValid && !dynamicformelement.isPristine,
+            'is-error': !dynamicformelement.isValid && !dynamicformelement.isPristine
+          }"></textarea>
+    </ng-container>
+  </ng-container>
+
+  <!-- Passwort element -->
+  <ng-container *nrfPasswordElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <input [formControlName]="element.key" [id]="element.key" type="password" class="form-input"
+        placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+        name="{{element.key}}" [ngClass]="{
+          'is-success': dynamicformelement.isValid && !dynamicformelement.isPristine,
+          'is-error': !dynamicformelement.isValid && !dynamicformelement.isPristine
+        }">
+    </ng-container>
+  </ng-container>
+
+  <!-- Option element -->
+  <ng-container *nrfOptionElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <select [id]="element.key" [formControlName]="element.key" class="form-select" [ngClass]="{
+          'is-success': dynamicformelement.isValid && !dynamicformelement.isPristine,
+          'is-error': !dynamicformelement.isValid && !dynamicformelement.isPristine
+        }">
+        <option *ngFor="let opt of element.options" [value]="opt.key">{{opt.value}}</option>
+      </select>
+    </ng-container>
+  </ng-container>
+
+  <!-- Checkbox element -->
+  <ng-container *nrfCheckboxElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <label class="form-checkbox" [attr.for]="element.key">
+        <input [formControlName]="element.key" type="checkbox" [id]="element.key">
+        <i class="form-icon"></i> {{element.description}}
+      </label>
+    </ng-container>
+  </ng-container>
+
+  <!-- Radio element -->
+  <ng-container *nrfRadioElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <ng-container *ngFor="let option of element.options">
+        <div class="form-radio">
+          <label class="form-check-label" [attr.for]="option.key">
+            <input formControlName="{{element.key}}" [id]="option.key" type="radio" value="{{option.key}}">
+            <i class="form-icon"></i> {{option.value}}
+          </label>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!-- Custom element -->
+  <ng-container *nrfCustomElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <div [id]="element.key" [innerHTML]="element.html"></div>
+    </ng-container>
+  </ng-container>
+
+  <!-- Description for input field -->
+  <ng-container *nrfDescription="let element; let config = config; let form = form;">
+    <ng-container *ngIf="!(element.controlType == 'checkbox')">
+      {{element.description}}
+    </ng-container>
+  </ng-container>
+
+  <!-- Error output for this specific field -->
+  <ng-container *nrfErrorOutput="let element; let config = config; let form = form;">
+    <ng-container *ngFor="let validator of element.validators">
+      <span *ngIf="dynamicformelement.isInvalidForError(validator.error)" class="form-input-hint">
+        {{dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage())}}
+      </span>
+    </ng-container>
+  </ng-container>
+
+</nrf-df-element>

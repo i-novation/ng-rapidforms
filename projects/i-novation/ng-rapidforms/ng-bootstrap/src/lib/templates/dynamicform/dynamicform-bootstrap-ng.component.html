@@ -1,0 +1,59 @@
+<nrf-dynamic-form [rows]="rows" [options]="options" [onSend]="onSend" [showSendButton]="showSendButton" [submitting]="submitting" [submitOnEnter]="submitOnEnter">
+
+    <!-- Template for the app title -->
+    <ng-container *nrfTitle>
+        <h1>{{options.title}}</h1>
+    </ng-container>
+
+    <!-- Template for the primary button -->
+    <ng-container *nrfPrimaryButton>
+        <button (click)="submit.emit(true)" type="button" [ngClass]="'btn btn-primary' + (submitting ? 'loading' : '')">
+            {{options.primaryButtonText}}
+        </button>
+    </ng-container>
+
+    <!-- Template for the global error output (summarized error messages) -->
+    <ng-container *nrfGlobalErrorOutput>
+        <br>
+        <div class="alert alert-danger" role="alert">
+            <ng-container *ngFor="let validatorrow of rows">
+                <ng-container *ngIf="validatorrow.rowType == 'element'">
+                    <ng-container *ngFor="let validator of dynamicform.asElement(validatorrow).validators">
+                        <ng-container *ngIf="dynamicform.isInvalidForError(validator.error, dynamicform.asElement(validatorrow))" class="form-control-feedback feedback-invalid">
+                            <p>{{dynamicform.replaceDynamicAttributes(validator.getFormattedMessage(), dynamicform.asElement(validatorrow))}}</p>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="validatorrow.rowType == 'group'">
+                    <ng-container *ngFor="let field of dynamicform.asGroup(validatorrow).fields">
+                        <ng-container *ngFor="let validator of field.validators">
+                            <ng-container *ngIf="dynamicform.isInvalidForError(validator.error, field)" class="form-control-feedback feedback-invalid">
+                                <p>{{dynamicform.replaceDynamicAttributes(validator.getFormattedMessage(), field)}}</p>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+        <br>
+    </ng-container>
+
+    <!-- Template for a form row that consists of just on element -->
+    <ng-container *nrfFormRow="let row; let form = form; let config = config;">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <nrf-df-element-bootstrap-ng [element]="dynamicform.asElement(row)" [form]="form" [options]="options"></nrf-df-element-bootstrap-ng>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Template for a form row that consists of multiple elements -->
+    <ng-container *nrfFormRowMultipleElements="let row; let form = form; let config = config;">
+        <div class="form-row">
+            <div *ngFor="let field of dynamicform.asGroup(row).fields" class="form-group {{field.classes}}">
+                <nrf-df-element-bootstrap-ng [element]="field" [form]="form" [options]="options"></nrf-df-element-bootstrap-ng>
+            </div>
+        </div>
+    </ng-container>
+
+</nrf-dynamic-form>

@@ -1,0 +1,66 @@
+<ng-container [formGroup]="form">
+
+    <!-- Label for field -->
+    <ng-container *ngIf="!(options.placeholders && element.hasPlaceholders)">
+        <ng-container *ngTemplateOutlet="labelTemplate; context: {$implicit: element}"></ng-container>
+    </ng-container>
+
+    <ng-container [ngSwitch]="element.controlType">
+        <!-- Textbox-Input -->
+        <ng-container *ngSwitchCase="'textbox'">
+            <ng-container *ngTemplateOutlet="textboxElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Textarea-Input -->
+        <ng-container *ngSwitchCase="'textarea'">
+            <ng-container *ngTemplateOutlet="textareaElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Password-Input -->
+        <ng-container *ngSwitchCase="'password'">
+            <ng-container *ngTemplateOutlet="passwordElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Select-Input -->
+        <ng-container *ngSwitchCase="'option'">
+            <ng-container *ngTemplateOutlet="optionElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Checkbox -->
+        <ng-container *ngSwitchCase="'checkbox'">
+            <ng-container *ngTemplateOutlet="checkboxElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Radio-Input -->
+        <ng-container *ngSwitchCase="'radio'">
+            <ng-container *ngTemplateOutlet="radioElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Custom Element -->
+        <ng-container *ngSwitchCase="'custom'">
+            <ng-container *ngTemplateOutlet="customElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- DatePicker -->
+        <ng-container *ngSwitchCase="'datepicker'">
+          <ng-container *ngTemplateOutlet="datePickerElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- DatePicker -->
+        <ng-container *ngSwitchCase="'numberbox'">
+          <ng-container *ngTemplateOutlet="numberElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Field Description -->
+        <ng-container>
+            <ng-container *ngTemplateOutlet="descriptionTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- Error-Output -->
+        <ng-container *ngIf="!options.summarizedErrorMessage">
+            <ng-container *ngTemplateOutlet="errorOutputTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+    </ng-container>
+
+</ng-container>
