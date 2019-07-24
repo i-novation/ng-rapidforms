@@ -1,0 +1,19 @@
+<div class="container">
+  <nrf-dynamic-form-bootstrap-ng
+    [rows]="rows"
+    [(form)]="dynamicform"
+    [onSend]="onSend.bind(this)">
+  </nrf-dynamic-form-bootstrap-ng>
+
+  <div class="card my-3 p-2" *ngIf="sentValue">
+    {{sentValue}}
+  </div>
+
+  <button class="btn btn-secondary mt-2" (click)="changeTitle()">
+    Change DynamicFormComponent Title
+  </button>
+
+  <button class="btn btn-secondary mt-2" (click)="changeControlValue()">
+    Change Control Value
+  </button>
+</div>

@@ -1,0 +1,92 @@
+<nrf-dynamic-form [rows]="rows" [options]="options" [onSend]="onSend" [showSendButton]="showSendButton" [submitting]="submitting" [submitOnEnter]="submitOnEnter">
+
+    <!-- Template for the app title -->
+    <ng-container *nrfTitle>
+      <div class="container">
+        <ng-container class="container" *ngIf="options.title !== ''">
+            <h2 class="h2-responsive">{{options.title}}</h2>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <!-- Template for the primary button -->
+    <ng-container *nrfPrimaryButton>
+        <div class="container">
+            <div class="columns">
+                <div class="column col-12">
+                  <ng-container [ngSwitch]="options.primaryButtonMaterialType">
+                    <!-- mat-button -->
+                    <button (click)="submit.emit(true)" *ngSwitchCase="'mat-button'" mat-button type="button" class="{{ options.primaryButtonClass }}"
+                      color="{{ options.primaryButtonMaterialColor }}" [ngClass]="(submitting ? 'loading' : '')">
+                      {{options.primaryButtonText}}
+                    </button>
+                    <!-- mat-raised-button -->
+                    <button (click)="submit.emit(true)" *ngSwitchCase="'mat-raised-button'" mat-raised-button type="button" class="{{ options.primaryButtonClass }}"
+                      color="{{ options.primaryButtonMaterialColor }}" [ngClass]="(submitting ? 'loading' : '')">
+                      {{options.primaryButtonText}}
+                    </button>
+                    <!-- mat-stroked-button -->
+                    <button (click)="submit.emit(true)" *ngSwitchCase="'mat-stroked-button'" mat-stroked-button type="button" class="{{ options.primaryButtonClass }}"
+                      color="{{ options.primaryButtonMaterialColor }}" [ngClass]="(submitting ? 'loading' : '')">
+                      {{options.primaryButtonText}}
+                    </button>
+                    <!-- mat-flat-button -->
+                    <button (click)="submit.emit(true)" *ngSwitchCase="'mat-flat-button'" mat-flat-button type="button" class="{{ options.primaryButtonClass }}"
+                      color="{{ options.primaryButtonMaterialColor }}" [ngClass]="(submitting ? 'loading' : '')">
+                      {{options.primaryButtonText}}
+                    </button>
+                  </ng-container>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Template for the global error output (summarized error messages) -->
+    <ng-container *nrfGlobalErrorOutput>
+        <br>
+        <div class="toast toast-error">
+            <ng-container *ngFor="let validatorrow of rows">
+                <ng-container *ngIf="validatorrow.rowType == 'element'">
+                    <ng-container *ngFor="let validator of dynamicform.asElement(validatorrow).validators">
+                        <ng-container *ngIf="dynamicform.isInvalidForError(validator.error, dynamicform.asElement(validatorrow))" class="form-control-feedback feedback-invalid">
+                            <p>{{dynamicform.replaceDynamicAttributes(validator.getFormattedMessage(), dynamicform.asElement(validatorrow))}}</p>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="validatorrow.rowType == 'group'">
+                    <ng-container *ngFor="let field of dynamicform.asGroup(validatorrow).fields">
+                        <ng-container *ngFor="let validator of field.validators">
+                            <ng-container *ngIf="dynamicform.isInvalidForError(validator.error, field)" class="form-control-feedback feedback-invalid">
+                                <p>{{dynamicform.replaceDynamicAttributes(validator.getFormattedMessage(), field)}}</p>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+        <br>
+    </ng-container>
+
+    <!-- Template for a form row that consists of just on element -->
+    <ng-container *nrfFormRow="let row; let form = form; let config = config;">
+        <div class="container">
+            <div class="columns">
+                <div class="column col-12">
+                  <nrf-df-element-material [element]="dynamicform.asElement(row)" [form]="form" [options]="options"></nrf-df-element-material>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Template for a form row that consists of multiple elements -->
+    <ng-container *nrfFormRowMultipleElements="let row; let form = form; let config = config;">
+        <div class="container">
+            <div class="row">
+                <div *ngFor="let field of dynamicform.asGroup(row).fields" class="column {{field.classes}}">
+                    <nrf-df-element-material [element]="field" [form]="form" [options]="options"></nrf-df-element-material>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+</nrf-dynamic-form>

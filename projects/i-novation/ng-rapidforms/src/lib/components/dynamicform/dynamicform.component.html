@@ -1,0 +1,59 @@
+<ng-container>
+    <form [formGroup]="form" (keyup.enter)="onEnter()">
+
+        <!-- global error output (aboveTitle) -->
+        <ng-container *ngIf="options.displaySummarizedErrorsPosition === options.aboveTitle">
+            <ng-container *ngIf="options.summarizedErrorMessage && hasAnyErrors()">
+                <ng-container *ngTemplateOutlet="globalErrorOutputTemplate; context: {$implicit: this, options: options}"></ng-container>
+            </ng-container>
+        </ng-container>
+
+        <!-- Form title -->
+        <ng-container>
+            <ng-container *ngTemplateOutlet="titleTemplate; context: {$implicit: options, options: options}"></ng-container>
+        </ng-container>
+
+        <!-- global error output (belowTitle) -->
+        <ng-container *ngIf="options.displaySummarizedErrorsPosition === options.belowTitle">
+            <ng-container *ngIf="options.summarizedErrorMessage && hasAnyErrors()">
+                <ng-container *ngTemplateOutlet="globalErrorOutputTemplate; context: {$implicit: this, options: options}"></ng-container>
+            </ng-container>
+        </ng-container>
+
+        <!-- loop over all rows of the form -->
+        <ng-container *ngFor="let row of rows">
+
+            <!-- row is a single field -->
+            <ng-container *ngIf="row.rowType == 'element'">
+                <ng-container *ngTemplateOutlet="formRowTemplate; context: {$implicit: row, form: form, config: options}"></ng-container>
+            </ng-container>
+
+            <!-- rows has multiple fields -->
+            <ng-container *ngIf="row.rowType == 'group'">
+                <ng-container *ngTemplateOutlet="formRowMultipleElementsTemplate; context: {$implicit: row, form: form, config: options}"></ng-container>
+            </ng-container>
+
+        </ng-container>
+
+        <!-- global error output (aboveSubmit) -->
+        <ng-container *ngIf="options.displaySummarizedErrorsPosition === options.aboveSubmit">
+            <ng-container *ngIf="options.summarizedErrorMessage && hasAnyErrors()">
+                <ng-container *ngTemplateOutlet="globalErrorOutputTemplate; context: {$implicit: this, options: options}"></ng-container>
+            </ng-container>
+        </ng-container>
+
+        <!-- primary button -->
+        <ng-container *ngIf="showSendButton">
+            <ng-container *ngTemplateOutlet="primaryButtonTemplate; context: {$implicit: this, options: options, submitting: submitting, submit: submit}"></ng-container>
+        </ng-container>
+
+        <!-- global error output (belowSubmit)  -->
+        <ng-container *ngIf="options.displaySummarizedErrorsPosition === options.belowSubmit">
+            <br>
+            <ng-container *ngIf="options.summarizedErrorMessage && hasAnyErrors()">
+                <ng-container *ngTemplateOutlet="globalErrorOutputTemplate; context: {$implicit: this, options: options}"></ng-container>
+            </ng-container>
+        </ng-container>
+
+    </form>
+</ng-container>

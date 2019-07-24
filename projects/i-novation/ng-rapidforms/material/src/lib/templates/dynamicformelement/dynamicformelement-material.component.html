@@ -1,0 +1,106 @@
+<nrf-df-element [element]="element" [form]="form" [options]="options">
+
+  <!-- https://material.angular.io/components/form-field/overview -->
+
+  <!-- Label for the element -->
+  <ng-container *nrfLabel="let element;">
+  </ng-container>
+
+  <!-- Textbox element -->
+  <ng-container *nrfTextboxElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <input matInput [formControlName]="element.key" [id]="element.key" [type]="element.type"
+          placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+          name="{{element.key}}">
+        <mat-error *ngFor="let validator of element.validators">
+          {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
+        </mat-error>
+        <mat-hint>{{element.description}}</mat-hint>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <!-- Textarea element -->
+  <ng-container *nrfTextareaElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <textarea matInput [formControlName]="element.key" [id]="element.key" [rows]="element.rows"
+          placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+          name="{{element.key}}"></textarea>
+        <mat-error *ngFor="let validator of element.validators">
+          {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
+        </mat-error>
+        <mat-hint>{{element.description}}</mat-hint>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <!-- Passwort element -->
+  <ng-container *nrfPasswordElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <input matInput [formControlName]="element.key" [id]="element.key" [type]="element.type"
+          placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+          name="{{element.key}}">
+        <mat-error *ngFor="let validator of element.validators">
+          {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
+        </mat-error>
+        <mat-hint>{{element.description}}</mat-hint>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <!-- Option element -->
+  <ng-container *nrfOptionElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-form-field>
+        <mat-select [id]="element.key" placeholder="{{options.placeholders ? element.label : '' }}" [formControlName]="element.key" (selectionChange)="element.changed ? element.changed($event) : null">
+          <mat-option *ngFor="let opt of element.options" [value]="opt.key">{{opt.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngFor="let validator of element.validators">
+          {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
+        </mat-error>
+        <mat-hint>{{element.description}}</mat-hint>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <!-- Checkbox element -->
+  <ng-container *nrfCheckboxElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-checkbox [formControlName]="element.key" [id]="element.key">{{element.description}}</mat-checkbox>
+    </ng-container>
+  </ng-container>
+
+  <!-- Radio element -->
+  <ng-container *nrfRadioElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <mat-radio-group formControlName="{{element.key}}" [attr.aria-label]="element.label">
+        <ng-container *ngFor="let option of element.options">
+          <mat-radio-button [id]="option.key" [value]="option.key">{{option.value}}</mat-radio-button>
+        </ng-container>
+        <mat-error *ngFor="let validator of element.validators">
+          {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
+        </mat-error>
+        <mat-hint>{{element.description}}</mat-hint>
+      </mat-radio-group>
+    </ng-container>
+  </ng-container>
+
+  <!-- Custom element -->
+  <ng-container *nrfCustomElement="let element; let config = config; let form = form;">
+    <ng-container [formGroup]="form">
+      <div [id]="element.key" [innerHTML]="element.html"></div>
+    </ng-container>
+  </ng-container>
+
+  <!-- Description for input field -->
+  <ng-container *nrfDescription="let element; let config = config; let form = form;">
+  </ng-container>
+
+  <!-- Error output for this specific field -->
+  <ng-container *nrfErrorOutput="let element; let config = config; let form = form;">
+  </ng-container>
+
+</nrf-df-element>
