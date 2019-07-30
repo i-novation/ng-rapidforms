@@ -3,9 +3,9 @@ import { DynamicFormElement, DynamicFormElementOptions } from '../DynamicFormEle
 /**
  * Checkbox element
  */
-export class CheckboxElement extends DynamicFormElement<string> {
+export class CheckboxElement extends DynamicFormElement<boolean|any> {
     controlType = 'checkbox';
-    constructor(options: DynamicFormElementOptions<string> = {}) {
+    constructor(options: DynamicFormElementOptions<boolean|any> = {}) {
         super(options);
     }
 }

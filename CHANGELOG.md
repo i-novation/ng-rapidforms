@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.1-beta.1
+
+- add repositoy field in package.json
+- include readme for npm package
+- fix bug with checkbox input options type
+
 ## 0.0.1-beta.0
 
 - new form type `<nrf-dynamic-form-bootstrap-ng>` with support for date-picker and number element
