@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build-lib": "ng build ng-rapidforms"
+    "start": "ng serve test",
+    "test": "ng test test",
+    "lint": "ng lint ng-rapidforms",
+    "build": "ng build ng-rapidforms && cp README.md ./dist/i-novation/ng-rapidforms"
   },
   "private": true,
   "dependencies": {

@@ -8,6 +8,7 @@ import {
   DynamicformComponent,
   RequiredValidator,
   NumberElement,
+  CheckboxElement,
 } from '@i-novation/ng-rapidforms';
 
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -63,6 +64,12 @@ export class AppComponent {
       minFractionDigits: 3,
       maxFractionDigits: 6,
       value: 123.54
+    }),
+    new CheckboxElement({
+      key: 'check',
+      label: 'Just a checkbox',
+      description: 'Check me if you can, I am the checker, man',
+      value: false,
     })
   ];
 
