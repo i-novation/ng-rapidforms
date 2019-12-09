@@ -1,8 +1,5 @@
 <div class="container">
-  <nrf-dynamic-form-bootstrap-ng
-    [rows]="rows"
-    [(form)]="dynamicform"
-    [onSend]="onSend.bind(this)">
+  <nrf-dynamic-form-bootstrap-ng [rows]="rows" [(form)]="dynamicform" [onSend]="onSend.bind(this)">
   </nrf-dynamic-form-bootstrap-ng>
 
   <div class="card my-3 p-2" *ngIf="sentValue">
@@ -17,3 +14,15 @@
     Change Control Value
   </button>
 </div>
+
+<ng-template #templateTemplate let-element let-options="config" let-form="form">
+  <ng-container [formGroup]="form">
+    <input [formControlName]="element.key" [id]="element.key" [type]="element.type" class="form-control"
+      placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+      name="{{element.key}}">
+
+    <!-- {{ logElement('ELEMENT', element) }}
+    {{ logElement('OPTIONS', options) }}
+    {{ logElement('FORM', form) }} -->
+  </ng-container>
+</ng-template>

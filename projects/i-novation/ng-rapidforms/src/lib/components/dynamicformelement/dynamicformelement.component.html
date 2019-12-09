@@ -46,9 +46,15 @@
           <ng-container *ngTemplateOutlet="datePickerElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
         </ng-container>
 
-        <!-- DatePicker -->
+        <!-- NumberBox -->
         <ng-container *ngSwitchCase="'numberbox'">
           <ng-container *ngTemplateOutlet="numberElementTemplate; context: {$implicit: element, config: options, form: form}"></ng-container>
+        </ng-container>
+
+        <!-- TemplateElement -->
+        <ng-container *ngSwitchCase="'template'">
+          <ng-container *ngTemplateOutlet="template; context: {$implicit: element, config: options, form: form}">
+          </ng-container>
         </ng-container>
 
         <!-- Field Description -->

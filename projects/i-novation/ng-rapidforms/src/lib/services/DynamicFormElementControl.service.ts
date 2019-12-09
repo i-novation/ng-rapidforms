@@ -10,48 +10,50 @@ import { DynamicFormElement } from '../models/DynamicFormElement';
  */
 @Injectable()
 export class DynamicFormElementControlService {
-    constructor() { }
+  constructor() { }
 
-    /**
-     * Converts the given rows into a form group
-     * @param rows The rows that should be converted
-     */
-    toFormGroup(rows: DynamicFormRow[], formGroup?: FormGroup) {
-        const group: any = {};
-        let validators: ValidatorFn[];
-        validators = new Array();
-
-        const controls = formGroup ? formGroup.controls : [];
-
-        if (rows) {
-          // Loop over each row of the form
-          rows.forEach(row => {
-              // Is the row a group of multiple field?
-              if (row.rowType === 'group') {
-                  const line = row as DynamicFormElementGroup;
-                  const elements = line.fields;
-                  elements.forEach(element => {
-                      element.validators.forEach(validator => {
-                          validators.push(validator.rule);
-                      });
-
-                      group[element.key] = new FormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
-                      validators = new Array();
-                  });
-                  // Just one field
-              } else if (row.rowType === 'element') {
-                  const element = row as DynamicFormElement<any>;
-                  element.validators.forEach(validator => {
-                      validators.push(validator.rule);
-                  });
-
-                 group[element.key] = new FormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
-
-                 validators = new Array();
-              }
-          });
+  /**
+   * Converts the given rows into a form group
+   * @param rows The rows that should be converted
+   */
+  toFormGroup(rows: DynamicFormRow[], formGroup?: FormGroup) {
+    const group: FormControls = {};
+    const controls = formGroup ? formGroup.controls : [];
+    if (rows) {
+      // Loop over each row of the form
+      for (const row of rows) {
+        // Is the row a group of multiple field?
+        if (row.rowType === 'group') {
+          const line = row as DynamicFormElementGroup;
+          for (const element of line.fields) {
+            this.setFormControlValidators(element, group, controls);
+          }
+          // Just one field
+        } else if (row.rowType === 'element') {
+          const element = row as DynamicFormElement<any>;
+          this.setFormControlValidators(element, group, controls);
         }
-
-        return new FormGroup(group);
+      }
     }
+    return new FormGroup(group);
+  }
+
+  /**
+   * Helper method to set the validators for the form element
+   * @param element The NRF Element
+   * @param group The group of FormControls for already existing elements
+   * @param controls The controls array used to create the form group
+   */
+  private setFormControlValidators(element: DynamicFormElement<any>, group: FormControls, controls: any): void {
+    const validators: ValidatorFn[] = [];
+    element.validators.forEach(validator => {
+      validators.push(validator.rule);
+    });
+    const formControl = new FormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
+    if (element.changed) {
+      formControl.valueChanges.subscribe(value => element.changed(value));
+    }
+    group[element.key] = formControl;
+  }
 }
+interface FormControls { [key: string]: FormControl; }

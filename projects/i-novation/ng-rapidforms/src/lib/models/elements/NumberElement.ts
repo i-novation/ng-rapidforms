@@ -62,6 +62,7 @@ export class NumberElement extends DynamicFormElement<number> {
       formControl.setValue('', { emitEvent: false });
     }
     this.validate(formControl);
+    this.changed(formControl.value);
     event.stopPropagation();
     event.preventDefault();
   }

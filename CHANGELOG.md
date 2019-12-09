@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.1.beta.2
+
+- fix issue with selected option in options array
+- add changed property for functions to all elements
+- add template element to add fields with an user defineable template
+- add event emitter for updated form group
+
 ## 0.0.1-beta.1
 
 - add repositoy field in package.json
