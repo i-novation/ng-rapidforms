@@ -35,6 +35,7 @@ export * from './lib/models/elements/TextboxElement';
 export * from './lib/models/elements/TextareaElement';
 export * from './lib/models/elements/DatePickerElement';
 export * from './lib/models/elements/NumberElement';
+export * from './lib/models/elements/TemplateElement';
 
 // Export the service
 export * from './lib/services/DynamicFormElementControl.service';

@@ -7,11 +7,15 @@ export class OptionElement extends DynamicFormElement<string> {
   controlType = 'option';
   hasPlaceholders = true;
   options: ElementOption[] = [];
-  changed: Function = null;
 
-  constructor(options: DynamicFormElementOptions<string> = {}, changed?: Function) {
+  constructor(options: DynamicFormElementOptions<string> = {}, changed?: (value: any) => any) {
     super(options);
     this.options = options.options || [];
-    this.changed = changed || null;
+    for (const option of this.options) {
+      if (option.selected) {
+        this.value = option.key;
+      }
+    }
+    this.changed = changed || options.changed;
   }
 }

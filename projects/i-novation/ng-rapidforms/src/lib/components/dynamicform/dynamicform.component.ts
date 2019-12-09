@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, ContentChild, TemplateRef, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ContentChild, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { DynamicFormElementControlService } from '../../services/DynamicFormElementControl.service';
@@ -35,7 +35,7 @@ export class DynamicformComponent implements OnInit {
   @Input()
   options: DynamicFormOptions;
   @Input()
-  onSend: Function;
+  onSend: (fg: FormGroup) => any;
   @Input()
   showSendButton = true;
   @Input()
@@ -45,6 +45,7 @@ export class DynamicformComponent implements OnInit {
 
   form: FormGroup;
   submit: EventEmitter<boolean> = new EventEmitter<boolean>();
+  formUpdated: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   /**
    * Templates and Directives
@@ -166,7 +167,10 @@ export class DynamicformComponent implements OnInit {
     return error;
   }
 
-  public rebuildFormGroup(): void {
+  public rebuildFormGroup(emitEvent = true): void {
     this.form = this.dfecs.toFormGroup(this._rows, this.form);
+    if (emitEvent) {
+      this.formUpdated.emit(this.form);
+    }
   }
 }

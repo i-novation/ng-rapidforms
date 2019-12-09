@@ -28,6 +28,7 @@ import { TextboxElementDirective } from './directives/TextboxElement.directive';
 import { TextareaElementDirective } from './directives/TextareaElement.directive';
 import { DatePickerElementDirective } from './directives/DatePickerElement.directive';
 import { NumberElementDirective } from './directives/NumberElement.directive';
+import { TemplateElementDirective } from './directives/TemplateElement.directive';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { NumberElementDirective } from './directives/NumberElement.directive';
     TextareaElementDirective,
     DatePickerElementDirective,
     NumberElementDirective,
+    TemplateElementDirective,
   ],
   exports: [
     // Forms
@@ -106,6 +108,7 @@ import { NumberElementDirective } from './directives/NumberElement.directive';
     TextareaElementDirective,
     DatePickerElementDirective,
     NumberElementDirective,
+    TemplateElementDirective,
   ]
 })
 export class RapidformsBasicModule {

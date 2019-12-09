@@ -1,4 +1,4 @@
-import { Component, Input, ContentChild, TemplateRef } from '@angular/core';
+import { Component, Input, ContentChild, TemplateRef, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { DynamicFormElement } from '../../models/DynamicFormElement';
@@ -14,8 +14,9 @@ import { DatePickerElementDirective } from '../../directives/DatePickerElement.d
 import { DescriptionDirective } from '../../directives/Description.directive';
 import { ErrorOutputDirective } from '../../directives/ErrorOutput.directive';
 import { LabelDirective } from '../../directives/Label.directive';
-import { OptionElement } from '../../models/elements/OptionElement';
 import { NumberElementDirective } from '../../directives/NumberElement.directive';
+import { TemplateElementDirective } from '../../directives/TemplateElement.directive';
+import { TemplateElement, TemplateContext } from '../../models/elements/TemplateElement';
 
 const READ_TEMPLATED_STATIC = false;
 
@@ -23,11 +24,13 @@ const READ_TEMPLATED_STATIC = false;
   selector: 'nrf-df-element',
   templateUrl: './dynamicformelement.component.html'
 })
-export class DynamicformelementComponent {
+export class DynamicformelementComponent implements OnInit {
 
   @Input() element: DynamicFormElement<any>;
   @Input() form: FormGroup;
   @Input() options: DynamicFormOptions;
+
+  template: TemplateRef<any>;
 
   /**
    * Templates and Directives
@@ -50,6 +53,8 @@ export class DynamicformelementComponent {
   datePickerElementTemplate: TemplateRef<any>;
   @ContentChild(NumberElementDirective, { static: READ_TEMPLATED_STATIC, read: TemplateRef })
   numberElementTemplate: TemplateRef<any>;
+  @ContentChild(TemplateElementDirective, { static: READ_TEMPLATED_STATIC, read: TemplateRef })
+  templateElementTemplate: TemplateRef<any>;
 
   @ContentChild(DescriptionDirective, { static: READ_TEMPLATED_STATIC, read: TemplateRef })
   descriptionTemplate: TemplateRef<any>;
@@ -57,6 +62,17 @@ export class DynamicformelementComponent {
   errorOutputTemplate: TemplateRef<any>;
   @ContentChild(LabelDirective, { static: READ_TEMPLATED_STATIC, read: TemplateRef })
   labelTemplate: TemplateRef<any>;
+
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  ngOnInit(): void {
+    if (this.element instanceof TemplateElement) {
+      this.element.templateUpdated.subscribe((value: TemplateContext ) => {
+        this.template = value.template;
+        this.cdRef.detectChanges();
+      });
+    }
+  }
 
   /**
    * Returns wether the fields value is valid
@@ -91,16 +107,5 @@ export class DynamicformelementComponent {
     message = message.replace('{{attribute}}', this.element.label);
     message = message.replace('{{value}}', this.form.controls[this.element.key].value);
     return message;
-  }
-
-  /**
-   * Calls a method of a option element when the value has been changed
-   * @param newValue The new value of the option field
-   */
-  onOptionValueChanged(newValue) {
-    const optionElement = this.element as OptionElement;
-    if (optionElement !== null) {
-      optionElement.changed(newValue);
-    }
   }
 }
