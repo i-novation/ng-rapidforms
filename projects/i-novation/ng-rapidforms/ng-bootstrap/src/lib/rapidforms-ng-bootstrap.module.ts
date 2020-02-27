@@ -28,7 +28,7 @@ import { DynamicformBootstrapNgComponent } from './templates/dynamicform/dynamic
   ]
 })
 export class RapidformsBootstrapNgModule extends RapidformsBasicModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RapidformsBootstrapNgModule> {
     return {
       ngModule: RapidformsBootstrapNgModule,
       providers: []

@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.0.1.beta.2
+## 1.0.0-beta.0
+
+- make library angular 9 compatible
+- add regexp type to regex validator
+
+## 0.0.1-beta.2
 
 - fix issue with selected option in options array
 - add changed property for functions to all elements

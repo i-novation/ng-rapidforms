@@ -44,7 +44,7 @@ import {
   ]
 })
 export class RapidformsMaterialModule extends RapidformsBasicModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RapidformsMaterialModule> {
     return {
       ngModule: RapidformsMaterialModule,
       providers: []

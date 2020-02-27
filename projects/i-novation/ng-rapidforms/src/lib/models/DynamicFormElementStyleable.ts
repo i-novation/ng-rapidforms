@@ -1,4 +1,4 @@
-import { Input, ViewChild, ContentChild, TemplateRef, AfterContentInit } from '@angular/core';
+import { Input, ViewChild, ContentChild, TemplateRef, AfterContentInit, Directive } from '@angular/core';
 
 import { DynamicFormElement } from './DynamicFormElement';
 import { FormGroup } from '@angular/forms';
@@ -17,6 +17,7 @@ import { LabelDirective } from '../directives/Label.directive';
 
 const READ_TEMPLATED_STATIC = true;
 
+@Directive()
 export class DynamicformelementStyleable implements AfterContentInit {
 
   @Input() element: DynamicFormElement<any>;
