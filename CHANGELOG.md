@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1-beta.0
+
+- angular material: make build compatible with newest version of material
+- spectre theme: fix issue with checkbox element is-error class
+
+## 1.0.0-beta.1
+
+- fix peer dependencies issue
+
 ## 1.0.0-beta.0
 
 - make library angular 9 compatible

@@ -56,7 +56,10 @@
   <!-- Checkbox element -->
   <ng-container *nrfCheckboxElement="let element; let config = config; let form = form;">
     <ng-container [formGroup]="form">
-      <label class="form-checkbox" [attr.for]="element.key">
+      <label class="form-checkbox" [attr.for]="element.key" [ngClass]="{
+          'is-success': dynamicformelement.isValid && !dynamicformelement.isPristine,
+          'is-error': !dynamicformelement.isValid && !dynamicformelement.isPristine
+        }">
         <input [formControlName]="element.key" type="checkbox" [id]="element.key">
         <i class="form-icon"></i> {{element.description}}
       </label>
