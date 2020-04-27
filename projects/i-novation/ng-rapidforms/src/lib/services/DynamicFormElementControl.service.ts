@@ -50,6 +50,9 @@ export class DynamicFormElementControlService {
       validators.push(validator.rule);
     });
     const formControl = new FormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
+    if (element.disabled) {
+      formControl.disable();
+    }
     if (element.changed) {
       formControl.valueChanges.subscribe(value => element.changed(value));
     }

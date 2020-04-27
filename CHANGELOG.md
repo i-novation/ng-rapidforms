@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2-beta.0
+
+- add number input template for spectre, material and bootstrap 3
+- fix issue with number formatting in number input field
+- add disabled property to form control options
+
 ## 1.0.1-beta.0
 
 - angular material: make build compatible with newest version of material
