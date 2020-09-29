@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3-beta.0
+
+- fix validation messages for number input
+- fix change handler call without provided function
+- fix number validator, disable group separator by default
+
 ## 1.0.2-beta.0
 
 - add number input template for spectre, material and bootstrap 3

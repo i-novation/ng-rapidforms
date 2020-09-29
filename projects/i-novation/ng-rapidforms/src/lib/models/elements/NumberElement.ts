@@ -1,7 +1,16 @@
 import { formatNumber } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { DynamicFormElement, DynamicFormElementOptions } from '../DynamicFormElement';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+export class NumberElementErrorStateMatcher implements ErrorStateMatcher {
+  constructor(private field: NumberElement) {}
+
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(form.form.controls[this.field.key].errors);
+  }
+}
 
 /**
  * Basic Textbox element for use with different types of input
@@ -21,6 +30,8 @@ export class NumberElement extends DynamicFormElement<number> {
   value: number;
 
   locale = 'en';
+
+  matcher = new NumberElementErrorStateMatcher(this);
 
   constructor(options: NumberElementOptions = {}) {
     super(options);
@@ -69,7 +80,9 @@ export class NumberElement extends DynamicFormElement<number> {
       formControl.setValue('', { emitEvent: false });
     }
     this.validate(formControl);
-    this.changed(formControl.value);
+    if (this.changed) {
+      this.changed(formControl.value);
+    }
     event.target.value = formatNumber(this.value, this.locale,
       `${this.minIntegerDigits}.${this.minFractionDigits}-${this.maxFractionDigits}`);
   }

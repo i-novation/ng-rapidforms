@@ -34,7 +34,7 @@
           [ngModel]="element.value | number : element.minIntegerDigits + '.' + element.minFractionDigits + '-' + element.maxFractionDigits : element.locale"
           [ngModelOptions]="{standalone: true}" (keypress)="element.ignoreInvalidNumberInput($event)"
           (change)="element.updateValue(form.get(element.key), $event)"
-          (focusout)="element.validate(form.get(element.key))">
+          (focusout)="element.validate(form.get(element.key))" [errorStateMatcher]="element.matcher">
         <mat-error *ngFor="let validator of element.validators">
           {{ dynamicformelement.isInvalidForError(validator.error) ? dynamicformelement.replaceDynamicAttributes(validator.getFormattedMessage()) : '' }}
         </mat-error>
