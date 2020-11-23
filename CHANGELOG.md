@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4-beta.0
+
+- make library angular 10 compatible
+
 ## 1.0.3-beta.0
 
 - fix validation messages for number input
