@@ -75,3 +75,4 @@ export * from './lib/directives/Title.directive';
 export * from './lib/directives/TextareaElement.directive';
 export * from './lib/directives/DatePickerElement.directive';
 export * from './lib/directives/NumberElement.directive';
+export * from './lib/directives/TemplateElement.directive';

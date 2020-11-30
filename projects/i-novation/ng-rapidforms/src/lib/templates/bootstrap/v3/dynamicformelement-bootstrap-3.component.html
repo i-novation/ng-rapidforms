@@ -19,6 +19,24 @@
         </ng-container>
     </ng-container>
 
+    <!-- Number element -->
+    <ng-container *nrfNumberElement="let element; let config = config; let form = form;">
+      <ng-container [formGroup]="form">
+        <div class="form-group" [ngClass]="{
+          'is-valid': dynamicformelement.isValid && !dynamicformelement.isPristine,
+          'is-invalid': !dynamicformelement.isValid && !dynamicformelement.isPristine
+        }">
+          <input [id]="element.key" [type]="element.type" class="form-control"
+            placeholder="{{element.placeholder ? element.placeholder : options.placeholders ? element.label : '' }}"
+            name="{{element.key}}"
+            [ngModel]="element.value | number : element.minIntegerDigits + '.' + element.minFractionDigits + '-' + element.maxFractionDigits : element.locale"
+            [ngModelOptions]="{standalone: true}" (keypress)="element.ignoreInvalidNumberInput($event)"
+            (change)="element.updateValue(form.get(element.key), $event)"
+            (focusout)="element.validate(form.get(element.key))">
+        </div>
+      </ng-container>
+    </ng-container>
+
     <!-- Textarea element -->
     <ng-container *nrfTextareaElement="let element; let config = config; let form = form;">
         <ng-container [formGroup]="form">

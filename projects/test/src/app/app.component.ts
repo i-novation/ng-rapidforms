@@ -22,8 +22,8 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild('templateTemplate', { static: false })
-  templateTemplate: TemplateRef<any>;
+  @ViewChild('templateTemplate')
+  templateTemplate: TemplateRef<any> = null;
 
   // Last sent value for display in template
   sentValue: string;

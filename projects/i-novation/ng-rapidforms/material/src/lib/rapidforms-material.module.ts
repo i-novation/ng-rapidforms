@@ -1,11 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatCheckboxModule,
-  MatSelectModule,
-  MatRadioModule
-} from '@angular/material';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { RapidformsBasicModule } from '@i-novation/ng-rapidforms';
 
@@ -44,7 +43,7 @@ import {
   ]
 })
 export class RapidformsMaterialModule extends RapidformsBasicModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<RapidformsMaterialModule> {
     return {
       ngModule: RapidformsMaterialModule,
       providers: []

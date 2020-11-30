@@ -8,7 +8,8 @@ import {
   IterableDiffers,
   EventEmitter,
   Output,
-  IterableDiffer
+  IterableDiffer,
+  Directive
 } from '@angular/core';
 
 import { DynamicFormRow } from './DynamicFormRow';
@@ -23,6 +24,7 @@ import { FormGroup } from '@angular/forms';
 
 const READ_TEMPLATED_STATIC = true;
 
+@Directive()
 export class DynamicformStyleable implements AfterContentInit, DoCheck {
 
   @Input()

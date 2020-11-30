@@ -13,6 +13,7 @@ export class DynamicFormElement<T> implements DynamicFormRow {
   hasPlaceholders: boolean;
   validators: CustomValidator[];
   placeholder: string;
+  disabled: boolean;
   changed: (value: any) => any;
 
   constructor(options: DynamicFormElementOptions<T> = {}) {
@@ -27,6 +28,7 @@ export class DynamicFormElement<T> implements DynamicFormRow {
     this.validators = options.validators || new Array<CustomValidator>();
     this.placeholder = options.placeholder || null;
     this.changed = options.changed || null;
+    this.disabled = options.disabled;
   }
 
   private capitalizeFirstLetter = (value: string) => {
@@ -49,6 +51,7 @@ export interface DynamicFormElementOptions<T> {
   rows?: number;
   cols?: number;
   placeholder?: string;
+  disabled?: boolean;
   changed?: (value: any) => any;
 }
 

@@ -1,6 +1,16 @@
-import { FormControl } from '@angular/forms';
+import { formatNumber } from '@angular/common';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { DynamicFormElement, DynamicFormElementOptions } from '../DynamicFormElement';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+export class NumberElementErrorStateMatcher implements ErrorStateMatcher {
+  constructor(private field: NumberElement) {}
+
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(form.form.controls[this.field.key].errors);
+  }
+}
 
 /**
  * Basic Textbox element for use with different types of input
@@ -17,7 +27,11 @@ export class NumberElement extends DynamicFormElement<number> {
   decimalSeparator = '.';
   groupSeparator = ',';
 
-  locale: string;
+  value: number;
+
+  locale = 'en';
+
+  matcher = new NumberElementErrorStateMatcher(this);
 
   constructor(options: NumberElementOptions = {}) {
     super(options);
@@ -29,6 +43,7 @@ export class NumberElement extends DynamicFormElement<number> {
     this.groupSeparator = options.groupSeparator || this.groupSeparator;
     this.numberInputValidationPattern = options.numberInputValidationPattern || this.numberInputValidationPattern;
     this.locale = options.locale || this.locale;
+    this.value = options.value;
   }
 
   /**
@@ -50,21 +65,26 @@ export class NumberElement extends DynamicFormElement<number> {
   parseNumberFromString(input: string, decimalSep: string, groupSep: string): number {
     const decimalSepRe = new RegExp('\\' + decimalSep, 'g');
     const groupSepRe = new RegExp('\\' + groupSep, 'g');
-    return parseFloat(input.replace(groupSepRe, '').replace(decimalSepRe, '.'));
+    return Math.floor(parseFloat(input.replace(groupSepRe, '').replace(decimalSepRe, '.')) * Math.pow(10, this.maxFractionDigits))
+      / Math.pow(10, this.maxFractionDigits);
   }
 
   updateValue(formControl: FormControl, event): void {
     // Parse the input
     if (event.target.value) {
-      formControl.setValue(this.parseNumberFromString(event.target.value, this.decimalSeparator, this.groupSeparator),
+      this.value = this.parseNumberFromString(event.target.value, this.decimalSeparator, this.groupSeparator);
+      formControl.setValue(this.value,
         { emitEvent: false });
     } else {
+      this.value = null;
       formControl.setValue('', { emitEvent: false });
     }
     this.validate(formControl);
-    this.changed(formControl.value);
-    event.stopPropagation();
-    event.preventDefault();
+    if (this.changed) {
+      this.changed(formControl.value);
+    }
+    event.target.value = formatNumber(this.value, this.locale,
+      `${this.minIntegerDigits}.${this.minFractionDigits}-${this.maxFractionDigits}`);
   }
 
   validate(formControl: FormControl): void {

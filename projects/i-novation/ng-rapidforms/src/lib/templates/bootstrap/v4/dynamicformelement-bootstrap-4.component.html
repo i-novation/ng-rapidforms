@@ -88,7 +88,7 @@
                 'is-valid': dynamicformelement.isValid && !dynamicformelement.isPristine,
                 'is-invalid': !dynamicformelement.isValid && !dynamicformelement.isPristine
               }"
-          [ngModel]="form.get(element.key).value | number : element.minIntegerDigits + '.' + element.minFractionDigits + '-' + element.maxFractionDigits : element.locale"
+          [ngModel]="element.value | number : element.minIntegerDigits + '.' + element.minFractionDigits + '-' + element.maxFractionDigits : element.locale"
           [ngModelOptions]="{standalone: true}" (keypress)="element.ignoreInvalidNumberInput($event)"
           (change)="element.updateValue(form.get(element.key), $event)" (focusout)="element.validate(form.get(element.key))">
       </ng-container>
