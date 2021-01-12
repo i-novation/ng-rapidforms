@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5-beta.1
+
+- fix material core import for main source of ng-rapidforms package
+
+## 1.0.5-beta.0
+
+- make library angular 11 compatible
+
 ## 1.0.4-beta.0
 
 - make library angular 10 compatible
