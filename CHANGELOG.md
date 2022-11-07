@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0-beta.0
+- make library angular 14 compatible
+
 ## 1.0.4-beta.0
 
 - make library angular 10 compatible

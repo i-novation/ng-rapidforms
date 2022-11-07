@@ -10,7 +10,7 @@
       "prefix": "nrf",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr:build",
           "options": {
             "tsConfig": "projects/i-novation/ng-rapidforms/tsconfig.lib.json",
             "project": "projects/i-novation/ng-rapidforms/ng-package.json"

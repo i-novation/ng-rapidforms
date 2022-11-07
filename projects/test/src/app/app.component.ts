@@ -131,6 +131,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   changeControlValue(): void {
-    this.dynamicform.form.controls.address1.setValue('verySecrectInformation');
+    this.dynamicform.form.controls.address.setValue('verySecrectInformation');
   }
 }
