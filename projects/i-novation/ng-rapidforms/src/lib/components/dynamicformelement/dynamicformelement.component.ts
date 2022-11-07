@@ -1,5 +1,5 @@
 import { Component, Input, ContentChild, TemplateRef, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormElement } from '../../models/DynamicFormElement';
 import { DynamicFormOptions } from '../../models/DynamicFormOptions';
@@ -27,7 +27,7 @@ const READ_TEMPLATED_STATIC = false;
 export class DynamicformelementComponent implements OnInit {
 
   @Input() element: DynamicFormElement<any>;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() options: DynamicFormOptions;
 
   template: TemplateRef<any>;

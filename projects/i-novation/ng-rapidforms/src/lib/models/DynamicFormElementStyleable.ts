@@ -1,7 +1,7 @@
 import { Input, ViewChild, ContentChild, TemplateRef, AfterContentInit, Directive } from '@angular/core';
 
 import { DynamicFormElement } from './DynamicFormElement';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormOptions } from './DynamicFormOptions';
 import { DynamicformelementComponent } from '../components/dynamicformelement/dynamicformelement.component';
 import { TextboxElementDirective } from '../directives/TextboxElement.directive';
@@ -21,7 +21,7 @@ const READ_TEMPLATED_STATIC = true;
 export class DynamicformelementStyleable implements AfterContentInit {
 
   @Input() element: DynamicFormElement<any>;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() options: DynamicFormOptions;
 
   @ViewChild(DynamicformelementComponent, { static: READ_TEMPLATED_STATIC })

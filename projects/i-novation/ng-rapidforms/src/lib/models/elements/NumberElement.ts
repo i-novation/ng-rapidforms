@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { DynamicFormElement, DynamicFormElementOptions } from '../DynamicFormElement';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -7,7 +7,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 export class NumberElementErrorStateMatcher implements ErrorStateMatcher {
   constructor(private field: NumberElement) {}
 
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     return !!(form.form.controls[this.field.key].errors);
   }
 }
@@ -69,7 +69,7 @@ export class NumberElement extends DynamicFormElement<number> {
       / Math.pow(10, this.maxFractionDigits);
   }
 
-  updateValue(formControl: FormControl, event): void {
+  updateValue(formControl: UntypedFormControl, event): void {
     // Parse the input
     if (event.target.value) {
       this.value = this.parseNumberFromString(event.target.value, this.decimalSeparator, this.groupSeparator);
@@ -87,7 +87,7 @@ export class NumberElement extends DynamicFormElement<number> {
       `${this.minIntegerDigits}.${this.minFractionDigits}-${this.maxFractionDigits}`);
   }
 
-  validate(formControl: FormControl): void {
+  validate(formControl: UntypedFormControl): void {
     formControl.markAsTouched();
   }
 }

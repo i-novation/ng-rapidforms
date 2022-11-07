@@ -1,5 +1,5 @@
 import { Component, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import {
   DynamicFormRow,
@@ -121,7 +121,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   // Function that is called when the form is valid and the user clicks on send
-  onSend(formGroup: FormGroup): void {
+  onSend(formGroup: UntypedFormGroup): void {
     console.log(formGroup);
     this.sentValue = JSON.stringify(formGroup.value);
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 
 import { DynamicFormRow } from '../models/DynamicFormRow';
 import { DynamicFormElementGroup } from '../models/DynamicFormElementGroup';
@@ -16,7 +16,7 @@ export class DynamicFormElementControlService {
    * Converts the given rows into a form group
    * @param rows The rows that should be converted
    */
-  toFormGroup(rows: DynamicFormRow[], formGroup?: FormGroup) {
+  toFormGroup(rows: DynamicFormRow[], formGroup?: UntypedFormGroup) {
     const group: FormControls = {};
     const controls = formGroup ? formGroup.controls : [];
     if (rows) {
@@ -35,7 +35,7 @@ export class DynamicFormElementControlService {
         }
       }
     }
-    return new FormGroup(group);
+    return new UntypedFormGroup(group);
   }
 
   /**
@@ -49,7 +49,7 @@ export class DynamicFormElementControlService {
     element.validators.forEach(validator => {
       validators.push(validator.rule);
     });
-    const formControl = new FormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
+    const formControl = new UntypedFormControl(controls[element.key] ? controls[element.key].value : element.value, validators);
     if (element.disabled) {
       formControl.disable();
     }
@@ -59,4 +59,4 @@ export class DynamicFormElementControlService {
     group[element.key] = formControl;
   }
 }
-interface FormControls { [key: string]: FormControl; }
+interface FormControls { [key: string]: UntypedFormControl; }

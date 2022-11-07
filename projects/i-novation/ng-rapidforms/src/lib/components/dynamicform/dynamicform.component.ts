@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, ContentChild, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormElementControlService } from '../../services/DynamicFormElementControl.service';
 import { DynamicFormRow } from '../../models/DynamicFormRow';
@@ -35,7 +35,7 @@ export class DynamicformComponent implements OnInit {
   @Input()
   options: DynamicFormOptions;
   @Input()
-  onSend: (fg: FormGroup) => any;
+  onSend: (fg: UntypedFormGroup) => any;
   @Input()
   showSendButton = true;
   @Input()
@@ -43,9 +43,9 @@ export class DynamicformComponent implements OnInit {
   @Input()
   submitOnEnter = false;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   submit: EventEmitter<boolean> = new EventEmitter<boolean>();
-  formUpdated: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  formUpdated: EventEmitter<UntypedFormGroup> = new EventEmitter<UntypedFormGroup>();
 
   /**
    * Templates and Directives

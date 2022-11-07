@@ -20,7 +20,7 @@ import { PrimaryButtonDirective } from '../directives/PrimaryButton.directive';
 import { GlobalErrorOutputDirective } from '../directives/GlobalErrorOutput.directive';
 import { FormRowMultipleElementsDirective } from '../directives/FormRowMultipleElements';
 import { FormRowDirective } from '../directives/FormRow.directive';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 const READ_TEMPLATED_STATIC = true;
 
@@ -42,7 +42,7 @@ export class DynamicformStyleable implements AfterContentInit, DoCheck {
   @Input()
   public options: DynamicFormOptions;
   @Input()
-  public onSend: (form: FormGroup) => void;
+  public onSend: (form: UntypedFormGroup) => void;
   @Input()
   public showSendButton = true;
   @Input()
